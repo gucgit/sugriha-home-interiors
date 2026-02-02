@@ -1,0 +1,31 @@
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "website/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AKIA5CKAIPDLFVIBBTES }}
+          aws-secret-access-key: ${{ secrets.An1jCmhM5fzvf4qm/VZ8/1IInc+dmzjUhLKx3NtLa }}
+          aws-region: us-east-1
+
+      - name: Sync website to S3
+        run: |
+          aws s3 sync website/ s3://interior-design-website-898319808726/ --delete
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id E7FZHQYYONNXS \
+            --paths "/*"
