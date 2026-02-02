@@ -1,3 +1,5 @@
+name: Deploy Website to S3 and CloudFront
+
 on:
   push:
     branches:
@@ -16,8 +18,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AKIA5CKAIPDLFVIBBTES }}
-          aws-secret-access-key: ${{ secrets.An1jCmhM5fzvf4qm/VZ8/1IInc+dmzjUhLKx3NtLa }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
       - name: Sync website to S3
